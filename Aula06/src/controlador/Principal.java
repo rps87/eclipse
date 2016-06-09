@@ -6,4 +6,24 @@ public class Principal
 	{
 		
 	}
+	
+	public void Menu()
+	{
+		
+	}
+	
+	public void ColetaDados()
+	{
+		
+	}
+	
+	public void Lancamento()
+	{
+		
+	}
+	
+	public void GeraLista()
+	{
+		
+	}
 }
