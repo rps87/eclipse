@@ -125,6 +125,7 @@ public class Principal
 	
 	public static void GeraLista()
 	{
-		
+		JOptionPane.showMessageDialog(null, "LISTAGEM DE LANCAMENTOS\n\nQuant. de Cadastros: " + indAlunos + "\nQuant. de Lancamentos: " + indLanc + "\nMedia Geral: " + (medTodos/indLanc) + "\nQuant. de Aprovados: " + apTodos + "\nQuant. de Reprovados: " + repTodos);
+		Menu();
 	}
 }
