@@ -1,0 +1,14 @@
+
+AVALIAÇÃO - ProjetoFinal
+
+
+1) LOGIN - 25 pontos
+
+2) CADASTRO LOGIN - 25 pontos
+
+3) TELA FUNCIONANDO - 25 pontos
+
+4) CADASTRO FINAL/LISTA - 25 pontos
+
+
+*** 4 - lista, fazer com ARRAYLIST
