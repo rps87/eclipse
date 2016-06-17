@@ -2,7 +2,10 @@ package visao;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import modelo.Conecta;
 
 public class CadPrincipal extends JFrame
 {
@@ -147,15 +150,11 @@ public class CadPrincipal extends JFrame
 			
 		btnLimpar.addActionListener(new ActionListener()
 	    {public void actionPerformed(ActionEvent e){
-	    	TxtNome.setText("");
-	    	TxtEndereco.setText("");
-	    	TxtEmail.setText("");
-	    	TxtTelefone.setText("");
-	    	TxtCidade.setText("");
+	    		Limpar();
 	    	}});
 		
 		btnConsultar.addActionListener(new ActionListener()
-	    {public void actionPerformed(ActionEvent e){Fechar();}});
+	    {public void actionPerformed(ActionEvent e){nome = TxtNome.getText();Consultar();}});
 		
 		btnVoltar.addActionListener(new ActionListener()
 	    {public void actionPerformed(ActionEvent e){Fechar();}});
@@ -163,12 +162,55 @@ public class CadPrincipal extends JFrame
 	
 	public void Verifica()
 	{
-		
+		Conecta c = new Conecta();
+		resultadoVerifica = c.VerificaPrincipal(nome);
+		if(resultadoVerifica == true)
+			c.CadastraPrincipal(nome, endereco, email, telefone, cidade);
+	}
+	
+	public void Consultar()
+	{
+		Conecta c = new Conecta();
+		resultadoConsulta = c.Consultar(nome);
+		if(resultadoConsulta == true)
+		{
+			JOptionPane.showMessageDialog(null, "Já existe um CADASTRO com esse NOME!!!");
+			TravaBotoes();
+			Limpar();
+		}
+		else
+		{
+			LiberaBotoes();
+		}
+	}
+	
+	public void LiberaBotoes()
+	{
+		btnCadastrar.setEnabled(true);
+		btnLimpar.setEnabled(true);
+		btnConsultar.setEnabled(false);
+	}
+	
+	public void TravaBotoes()
+	{
+		btnCadastrar.setEnabled(false);
+		btnLimpar.setEnabled(false);
+		btnConsultar.setEnabled(true);
+	}
+	
+	public void Limpar()
+	{
+		TxtNome.setText("");
+    	TxtEndereco.setText("");
+    	TxtEmail.setText("");
+    	TxtTelefone.setText("");
+    	TxtCidade.setText("");
 	}
 	
 	public void Cadastra()
 	{
 		 setVisible(true);
+		 TravaBotoes();
 	}
 	
 	public void Fechar()

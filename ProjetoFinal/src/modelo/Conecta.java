@@ -1,9 +1,7 @@
 package modelo;
 
 import java.sql.*;
-
 import javax.swing.*;
-
 import visao.CadLogin;
 import visao.Login;
 import visao.Principal;
@@ -14,6 +12,7 @@ public class Conecta
 	Principal pri = new Principal();
 	CadLogin cadLog = new CadLogin();
 	boolean resultado = false;
+	boolean resultadoConsulta = false;
 	
 	public Conecta()
 	{
@@ -65,7 +64,7 @@ public class Conecta
 		}
 	}
 	
-	public boolean Verifica(String usuario, String senha)
+	public boolean VerificaLogin(String usuario, String senha)
 	{
 		try
 		{
@@ -114,13 +113,46 @@ public class Conecta
 		}
 	}
 	
-	public void CadastraPrincipal(String usuario, String senha)
+	public boolean VerificaPrincipal(String nome)
+	{
+		try
+		{
+			Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/aula","root","");
+			Statement st = con.createStatement(); 
+			ResultSet rs = st.executeQuery("SELECT nome FROM principal"); 
+			if(rs!=null)
+			{
+				while(rs.next())	
+				{
+					String nom = rs.getString("nome"); 
+					
+					if(nome.trim().equals(nom))
+					{
+						JOptionPane.showMessageDialog(null, "Já existe um Usuário com Este Nome!!!");
+					}
+					else 
+					{
+						resultado = true;
+					}
+				}
+				rs.close();
+			}
+			con.close();
+		}
+		catch(SQLException e)
+		{
+			JOptionPane.showMessageDialog(null, "Erro: " + e);
+		}
+		return resultado;
+	}
+	
+	public void CadastraPrincipal(String nome, String endereco, String email, String telefone, String cidade)
 	{
 		try
 		{
 			Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/aula","root","");
 			Statement st = con.createStatement();
-			st.executeUpdate("INSERT INTO principal (nome, endereco, email, telefone, cidade) VALUES ('" + usuario + "', '" +senha + "')");
+			st.executeUpdate("INSERT INTO principal (nome, endereco, email, telefone, cidade) VALUES ('" + nome + "', '" + endereco + "', '" + email + "', '" + telefone + "', '" + cidade + "')");
 			JOptionPane.showMessageDialog(null, "Lançamento Feito com Sucesso!!!");
 			con.close();
 		}
@@ -128,5 +160,36 @@ public class Conecta
 		{
 			JOptionPane.showMessageDialog(null, "Erro: " + e);
 		}
+	}
+	
+	public boolean Consultar(String nome)
+	{	
+		
+		try
+		{
+			Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/aula","root","");
+			Statement st = con.createStatement(); 
+			ResultSet rs = st.executeQuery("SELECT * FROM principal"); 
+			if(rs!=null)
+			{
+				while(rs.next())	
+				{
+					String nom = rs.getString("nome"); 
+					
+					if(nome.trim().equals(nom))
+					{
+						resultadoConsulta = true;
+						break;
+					}
+				}
+				rs.close();
+			}
+			con.close();
+		}
+		catch(SQLException e)
+		{
+			JOptionPane.showMessageDialog(null, "Erro: " + e);
+		}
+		return resultadoConsulta;
 	}
 }

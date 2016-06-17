@@ -105,7 +105,7 @@ public class CadLogin extends JFrame
 	public void Verifica()
 	{
 		Conecta con = new Conecta();
-		resultado = con.Verifica(usuario, senha);
+		resultado = con.VerificaLogin(usuario, senha);
 		if(resultado == true)
 			con.CadastraLogin(usuario, senha);
 	}
