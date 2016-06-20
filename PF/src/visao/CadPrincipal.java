@@ -171,6 +171,8 @@ public class CadPrincipal extends JFrame
 			c.CadastraPrincipal(nome, endereco, email, telefone, cidade);
 		}
 		TravaBotoes();
+		Relatorio r = new Relatorio();
+		r.Abrir();
 	}
 	
 	public void Consultar()
