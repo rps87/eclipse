@@ -12,6 +12,7 @@ public class Principal extends JFrame
 	JMenu menuIniciar = new JMenu("INICIAR");
 	JMenu menuSair = new JMenu("LOGOUT");
 	JMenuItem menuItemCadastro = new JMenuItem("CADASTRO");
+	JMenuItem menuItemRelatorio = new JMenuItem("RELATORIO");
 	
 	public Principal()
 	{
@@ -31,7 +32,8 @@ public class Principal extends JFrame
 		setJMenuBar(menuBarra);
 		menuBarra.add(menuIniciar);
 		menuBarra.add(menuSair);
-		menuIniciar.add(menuItemCadastro); 
+		menuIniciar.add(menuItemCadastro);
+		menuIniciar.add(menuItemRelatorio);
 		
 		menuSair.addMouseListener(new MouseListener(){
 			public void mouseClicked(MouseEvent arg0) {Fechar();Limpar();}
@@ -43,6 +45,8 @@ public class Principal extends JFrame
 		menuItemCadastro.addActionListener(new ActionListener()
 		{public void actionPerformed(ActionEvent e){CadPrincipal cad = new CadPrincipal();cad.Cadastra();}});
 		
+		menuItemRelatorio.addActionListener(new ActionListener()
+		{public void actionPerformed(ActionEvent e){Relatorio r = new Relatorio();r.Abrir();}});
 	}
 	
 	public void Limpar()
