@@ -137,6 +137,8 @@ public class CadPrincipal extends JFrame
 		btnVoltar.setBackground(Color.BLACK);
 		btnVoltar.setBounds(300, 300, 120, 20);
 		this.getContentPane().add(btnVoltar);
+		
+		TravaCampos();
 	
 		btnCadastrar.addActionListener(new ActionListener()
 		    {public void actionPerformed(ActionEvent e){
@@ -165,7 +167,10 @@ public class CadPrincipal extends JFrame
 		Conecta c = new Conecta();
 		resultadoVerifica = c.VerificaPrincipal(nome);
 		if(resultadoVerifica == true)
+		{
 			c.CadastraPrincipal(nome, endereco, email, telefone, cidade);
+		}
+		TravaBotoes();
 	}
 	
 	public void Consultar()
@@ -176,12 +181,32 @@ public class CadPrincipal extends JFrame
 		{
 			JOptionPane.showMessageDialog(null, "Já existe um CADASTRO com esse NOME!!!");
 			TravaBotoes();
+			TravaCampos();
 			Limpar();
 		}
 		else
 		{
 			LiberaBotoes();
+			LiberaCampos();
 		}
+	}
+	
+	public void LiberaCampos()
+	{
+		TxtNome.setEnabled(true);
+		TxtEndereco.setEnabled(true);
+		TxtTelefone.setEnabled(true);
+		TxtCidade.setEnabled(true);
+		TxtEmail.setEnabled(true);
+	}
+	
+	public void TravaCampos()
+	{
+		TxtNome.setEnabled(true);
+		TxtEndereco.setEnabled(false);
+		TxtTelefone.setEnabled(false);
+		TxtCidade.setEnabled(false);
+		TxtEmail.setEnabled(false);
 	}
 	
 	public void LiberaBotoes()
@@ -205,6 +230,8 @@ public class CadPrincipal extends JFrame
     	TxtEmail.setText("");
     	TxtTelefone.setText("");
     	TxtCidade.setText("");
+    	TravaCampos();
+    	TravaBotoes();
 	}
 	
 	public void Cadastra()
