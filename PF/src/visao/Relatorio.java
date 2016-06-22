@@ -9,16 +9,26 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class Relatorio extends JFrame
 {
 	static final long serialVersionUID = 1L;
-	
-	private JPanel Painel;
-    private JTable table;
-    private JScrollPane scrollPane;
     
     private String colunas[] = { "ID", "NOME", "ENDERECO", "EMAIL", "TELEFONE", "CIDADE" };
+    private String dados[][] = {};
+    
+    private JPanel Painel;
+    private JTable table = new JTable(dados ,colunas);
+    private DefaultTableModel model;
+    private JScrollPane scrollPane;
+    
+    String id = null; 
+	String nome = null;
+	String end = null;
+	String ema = null;
+	String tel = null;
+	String cit = null;
 	
 	private JButton btnVoltar;
 	
@@ -46,38 +56,39 @@ public class Relatorio extends JFrame
 	
 	private void addComponentes()
 	{  
-		String valores[][] = { {"1", "nome", "rua A", "adm@mail.com", "111-111", "City" }};
-		int x = 0;
-		int y = 0;
+		//table = new JTable(model);
         try
 		{
 			Connection con =  DriverManager.getConnection("jdbc:mysql://localhost:3306/aula","root","");
 			Statement st = con.createStatement(); 
-			ResultSet rs = st.executeQuery("SELECT * FROM login"); 
+			ResultSet rs = st.executeQuery("SELECT * FROM principal");
 			if(rs!=null)
-			{
+			{	
+				int i = 0;
 				while(rs.next())	
 				{
-					String id = String.valueOf(rs.getInt("id")); 
-					String nome = rs.getString("nome");
-					
-					/*String valores[][] = { {id, nome, "rua A", "adm@mail.com", "111-111", "City" },
-		        		{ "admin", "rua A", "adm@mail.com", "111-111", "City" },
-		        		{ "admin", "rua A", "adm@mail.com", "111-111", "City"  },
-		        		{ "admin", "rua A", "adm@mail.com", "111-111", "City" },
-		        		{ "admin", "rua A", "adm@mail.com", "111-111", "City" },
-		        		{ "admin", "rua A", "adm@mail.com", "111-111", "City" } };*/
+					id = String.valueOf(rs.getInt("id")); 
+					nome = rs.getString("nome");
+					end = rs.getString("endereco");
+					ema = rs.getString("email");
+					tel = rs.getString("telefone");
+					cit = rs.getString("cidade");
+					String linha[][] = {{String.valueOf(rs.getInt("id")), rs.getString("nome"), rs.getString("endereco"), rs.getString("email"), rs.getString("telefone"), rs.getString("cidade")}};
+					JOptionPane.showMessageDialog(null, linha);
+					table.addRowSelectionInterval(1, 1);
+					table.
+					i++;
 				}
 				rs.close();
 			}
+			
 			con.close();
 			}
 		catch(SQLException e)
 		{
 			JOptionPane.showMessageDialog(null, "Erro: " + e);
 		}
-
-        table = new JTable(valores, colunas);
+       
         table.getColumnModel().getColumn(0).setPreferredWidth(10);
         table.getColumnModel().getColumn(0).setResizable(false);
         table.getColumnModel().getColumn(1).setPreferredWidth(50);
@@ -90,7 +101,8 @@ public class Relatorio extends JFrame
         table.getColumnModel().getColumn(4).setResizable(false);
         table.getColumnModel().getColumn(5).setPreferredWidth(40);
         table.getColumnModel().getColumn(5).setResizable(false);
-        scrollPane = new JScrollPane(table);
+        
+        scrollPane.setViewportView(table);
         Painel.add(scrollPane, BorderLayout.CENTER);
 		
 		// Cria o Botao de VOLTAR
