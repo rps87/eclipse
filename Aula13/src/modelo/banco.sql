@@ -1,0 +1,11 @@
+CREATE DATABASE banco;
+
+USE banco;
+
+CREATE TABLE cliente(
+    idCli INT(11) AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL,
+    endereco VARCHAR(40) NOT NULL,
+    telefone VARCHAR(40) NOT NULL
+);
